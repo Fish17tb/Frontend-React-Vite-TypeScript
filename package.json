@@ -1,11 +1,11 @@
 {
-  "name": "react-test-fresher-ts",
+  "name": "frontend-react-vite-typescript",
   "private": true,
   "version": "1.0.0",
   "type": "module",
   "author": {
-    "name": "Hỏi Dân IT vs Eric",
-    "url": "https://hoidanit.vn"
+    "name": "Nguyên Vũ",
+    "url": "https://github.com/Fish17tb/Frontend-React-Vite-TypeScript"
   },
   "scripts": {
     "dev": "vite",
@@ -21,7 +21,7 @@
   "devDependencies": {
     "@eslint/js": "9.12.0",
     "@types/node": "22.7.5",
-    "@types/react": "18.3.11",
+    "@types/react": "^18.3.11",
     "@types/react-dom": "18.3.0",
     "@vitejs/plugin-react-swc": "3.7.1",
     "eslint": "9.12.0",

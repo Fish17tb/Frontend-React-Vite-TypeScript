@@ -1,10 +1,5 @@
 # Frontend React Vite TypeScript
 
-
-
-
-
-
 ## Giới thiệu
 
 Dự án **Frontend React Vite TypeScript** sử dụng Vite làm công cụ xây dựng, kết hợp với React và TypeScript để phát triển ứng dụng web hiệu suất cao.

@@ -1,35 +1,74 @@
-# React Test Fresher (TS) Starter Template
-Template này được sử dụng cho series React Test Fresher (TS) của tác giả Hỏi Dân IT (Eric)
+# Frontend React Vite TypeScript
 
-### Môi trường chạy dự án: Node.js v20.14.0
-https://nodejs.org/download/release/v20.14.0/
 
-## Về tác giả
-Mọi thông tin về Tác giả Hỏi Dân IT, các bạn có thể tìm kiếm tại đây:
 
-Website chính thức: https://hoidanit.vn/
 
-Youtube “Hỏi Dân IT” : https://www.youtube.com/@hoidanit
 
-Tiktok “Hỏi Dân IT” :  https://www.tiktok.com/@hoidanit
 
-Fanpage “Hỏi Dân IT” : https://www.facebook.com/askITwithERIC/
+## Giới thiệu
 
-Udemy Hỏi Dân IT: https://www.udemy.com/user/eric-7039/
+Dự án **Frontend React Vite TypeScript** sử dụng Vite làm công cụ xây dựng, kết hợp với React và TypeScript để phát triển ứng dụng web hiệu suất cao.
 
-===
+## Cấu trúc dự án
 
-Các bước cài đặt: (chế độ development)
-1. clone code
-2. cài đặt thư viện: npm i
-3. Update file .env.development (nếu cần thiết)
-4. Chạy dự án: npm run dev
+```
+frontend-react-vite-typescript/
+│── src/                 # Thư mục chứa mã nguồn React
+│── public/              # Thư mục chứa tài nguyên tĩnh
+│── index.html           # Tệp HTML chính
+│── tsconfig.json        # Cấu hình TypeScript
+│── vite.config.ts       # Cấu hình Vite
+│── package.json         # Thông tin và scripts của dự án
+│── README.md            # Hướng dẫn sử dụng
+```
 
-===
+## Cài đặt
 
-Cách chạy tại chế độ production:
-1. clone code
-2. cài đặt thư viện: npm i
-3. Update file .env.production (nếu cần thiết)
-4. Build dự án: npm run build
-5. Chạy dự án: npm run preview
+Để chạy dự án này, cần cài đặt [Node.js](https://nodejs.org/) phiên bản mới nhất.
+
+1. **Clone repo:**
+
+   ```sh
+   git clone https://github.com/Fish17tb/Frontend-React-Vite-TypeScript.git
+   cd Frontend-React-Vite-TypeScript
+   ```
+
+2. **Cài đặt dependencies:**
+
+   ```sh
+   npm install
+   ```
+
+## Scripts
+
+- **Chạy môi trường phát triển:**
+  ```sh
+  npm run dev
+  ```
+- **Xây dựng dự án:**
+  ```sh
+  npm run build
+  ```
+- **Kiểm tra lỗi với ESLint:**
+  ```sh
+  npm run lint
+  ```
+- **Xem trước bản build:**
+  ```sh
+  npm run preview
+  ```
+
+## Công nghệ sử dụng
+
+- **React** 18.3.1
+- **React Router DOM** 6.27.0
+- **Sass** 1.80.4
+- **Vite** 5.4.8
+- **TypeScript** 5.6.3
+- **ESLint** 9.12.0
+
+## Tác giả
+
+- **Nguyên Vũ** - [GitHub](https://github.com/Fish17tb/Frontend-React-Vite-TypeScript)
+
+

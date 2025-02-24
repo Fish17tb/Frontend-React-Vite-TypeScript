@@ -3,6 +3,7 @@ import { Button, Divider, Form, FormProps, Input } from "antd";
 import "./register.scss";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { registerAPI } from "@/services/api";
 
 type FieldType = {
   fullName: string;
@@ -14,8 +15,11 @@ type FieldType = {
 const RegisterPage = () => {
   const [isSubmit, setIsSubmit] = useState(false);
 
-  const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-    console.log('Success:', values);
+  const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
+    console.log('Success:', values)
+    
+    const res = await registerAPI("Nguyễn Xuân Anh", "xuananh23@gmail.com", "12345", "034521768")
+    console.log("check-resRegister", res)
   };
 
   return (

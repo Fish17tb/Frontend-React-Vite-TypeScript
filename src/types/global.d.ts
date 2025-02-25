@@ -17,4 +17,12 @@ declare global {
     };
     results: T[];
   }
+
+  interface IRegister {
+    id: string;
+    fullName: string;
+    email: string;
+    password: string;
+    phone: string;
+  }
 }

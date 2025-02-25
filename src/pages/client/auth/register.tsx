@@ -18,7 +18,7 @@ const RegisterPage = () => {
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
     console.log('Success:', values)
     
-    const res = await registerAPI("Nguyễn Xuân Anh", "xuananh23@gmail.com", "12345", "034521768")
+    const res = await registerAPI("Nguyễn Xuân Vinh", "xuanvinh23@gmail.com", "12345", "034521768")
     console.log("check-resRegister", res)
   };
 

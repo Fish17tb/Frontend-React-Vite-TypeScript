@@ -7,5 +7,5 @@ export const registerAPI = (
   phone: string
 ) => {
   const urlBackend = `/api/v1/user/register`;
-  return axios.post(urlBackend, { fullName, email, password, phone });
+  return axios.post<IBackendRes<IRegister>>(urlBackend, { fullName, email, password, phone });
 };

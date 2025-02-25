@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Button, Divider, Form, FormProps, Input } from "antd";
+import { App, Button, Divider, Form, FormProps, Input } from "antd";
 import "./register.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { registerAPI } from "@/services/api";
 
@@ -14,13 +14,29 @@ type FieldType = {
 
 const RegisterPage = () => {
   const [isSubmit, setIsSubmit] = useState(false);
+  const { message } = App.useApp();
+  const navigate = useNavigate();
 
-  const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
-    console.log('Success:', values)
-    
-    const res = await registerAPI("Nguyễn Xuân Vinh", "xuanvinh23@gmail.com", "12345", "034521768")
-    console.log("check-resRegister", res)
+  const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
+    setIsSubmit(true);
+    const { fullName, email, password, phone } = values;
+    const res = await registerAPI(fullName, email, password, phone);
+    if (res && res.data) {
+      message.success("Đăng ký tài khoản thành công!");
+      navigate("/login");
+    } else {
+      message.error(res.message);
+    }
+    setIsSubmit(false);
   };
+
+  // const res = registerAPI(
+  //   "Nguyễn Xuân Vinh",
+  //   "xuanvinh23@gmail.com",
+  //   "12345",
+  //   "034521768"
+  // );
+  // console.log("check-resRegister", res);
 
   return (
     <div className="register-page">
@@ -31,11 +47,7 @@ const RegisterPage = () => {
               <h2 className="text text-large">Đăng ký tài khoản</h2>
               <Divider />
             </div>
-            <Form
-              name="form-register"
-              onFinish={onFinish}
-              autoComplete="off"
-            >
+            <Form name="form-register" onFinish={onFinish} autoComplete="off">
               <Form.Item<FieldType>
                 labelCol={{ span: 24 }}
                 label="Họ tên"

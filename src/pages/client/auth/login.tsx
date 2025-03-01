@@ -2,7 +2,8 @@ import { loginAPI } from "@/services/api";
 import { App, Button, Divider, Form, FormProps, Input } from "antd";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./login.scss"
+import "./login.scss";
+import { useCurrentApp } from "components/context/app.context";
 
 type FieldType = {
   username: string;
@@ -11,6 +12,7 @@ type FieldType = {
 
 const LoginPage = () => {
   const [isSubmit, setIsSubmit] = useState(false);
+  const { setIsAuthenticated, setUser } = useCurrentApp();
 
   const { message, notification } = App.useApp();
   const navigate = useNavigate();
@@ -20,6 +22,9 @@ const LoginPage = () => {
     setIsSubmit(true);
     const res = await loginAPI(username, password);
     if (res && res.data) {
+      localStorage.setItem("access_token", res.data.access_token);
+      setIsAuthenticated(true);
+      setUser(res.data.user)
       message.success("Đăng nhập tài khoản thành công!");
       navigate("/");
     } else {
@@ -33,7 +38,7 @@ const LoginPage = () => {
         duration: 5,
       });
     }
-    setIsSubmit(false)
+    setIsSubmit(false);
   };
 
   return (

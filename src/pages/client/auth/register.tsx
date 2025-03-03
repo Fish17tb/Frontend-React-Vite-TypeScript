@@ -1,5 +1,3 @@
-/* eslint-disable no-debugger */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { App, Button, Divider, Form, FormProps, Input } from "antd";
 import "./register.scss";
 import { Link, useNavigate } from "react-router-dom";

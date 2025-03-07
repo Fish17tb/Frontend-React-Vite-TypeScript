@@ -9,14 +9,15 @@ interface IProps {
 const ProtectedRoute = (props: IProps) => {
   const { isAuthenticated, user } = useCurrentApp();
   const location = useLocation();
+
 //   console.log(location.pathname);
   if (isAuthenticated === false) {
     return (
       <Result
         status="404"
-        title="404"
-        subTitle="Sorry, the page you visited does not exist."
-        extra={<Button type="primary">Back Home</Button>}
+        title="Not Login"
+        subTitle="Bạn vui lòng đăng nhập để sử dụng tính năng này."
+        extra={<Button type="primary"><a href="/login">Đăng Nhập</a></Button>}
       />
     );
   }
@@ -30,7 +31,7 @@ const ProtectedRoute = (props: IProps) => {
               status="403"
               title="403"
                subTitle="Sorry, you are not authorized to access this page."
-              extra={<Button type="primary">Back Home</Button>}
+              extra={<Button type="primary"><a href="/">Back Home</a></Button>}
             />
           );
     }

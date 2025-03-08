@@ -19,7 +19,7 @@ frontend-react-vite-typescript/
 
 ## Cài đặt
 
-Để chạy dự án này, cần cài đặt [Node.js](https://nodejs.org/) phiên bản mới nhất.
+Để chạy dự án này, cần cài đặt [Node.js](https://nodejs.org/) phiên bản 20.14.0
 
 1. **Clone repo:**
 

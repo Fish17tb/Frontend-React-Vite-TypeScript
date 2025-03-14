@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getUsersAPI } from "@/services/api";
-import { PlusOutlined } from "@ant-design/icons";
+import { DeleteTwoTone, EditTwoTone, PlusOutlined } from "@ant-design/icons";
 import type { ActionType, ProColumns } from "@ant-design/pro-components";
 import { ProTable } from "@ant-design/pro-components";
 import { Button } from "antd";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const columns: ProColumns<IUserTable>[] = [
   {
@@ -15,6 +16,10 @@ const columns: ProColumns<IUserTable>[] = [
   {
     title: "_id",
     dataIndex: "_id",
+    hideInSearch: true,
+    render(_dom, entity, _index, _action, _schema) {
+      return <a href="#">{entity._id}</a>;
+    },
   },
   {
     title: "Full Name",
@@ -23,19 +28,42 @@ const columns: ProColumns<IUserTable>[] = [
   {
     title: "Email",
     dataIndex: "email",
+    copyable: true,
   },
   {
     title: "Phone",
     dataIndex: "phone",
+    hideInSearch: true,
   },
   {
     title: "Created At",
     dataIndex: "createdAt",
   },
+  {
+    title: "Action",
+    hideInSearch: true,
+    render(_dom, _entity, _index, _action, _schema) {
+      return (
+        <>
+          <EditTwoTone
+            twoToneColor="#f57800"
+            style={{ cursor: "pointer", marginRight: 15 }}
+          />
+          <DeleteTwoTone twoToneColor="#ff4d4f" style={{ cursor: "pointer" }} />
+        </>
+      );
+    },
+  },
 ];
 
 const TableUser = () => {
   const actionRef = useRef<ActionType>();
+  const [meta, setMeta] = useState({
+    current: 1,
+    pageSize: 5,
+    pages: 0,
+    total: 0,
+  });
   return (
     <>
       <ProTable<IUserTable>
@@ -43,20 +71,31 @@ const TableUser = () => {
         actionRef={actionRef}
         cardBordered
         request={async (params, sort, filter) => {
-          console.log(sort, filter);
-          const res = await getUsersAPI();
+          console.log(params, sort, filter);
+          const res = await getUsersAPI(params?.current ?? 1, params?.pageSize ?? 5);
+          if (res.data) {
+            setMeta(res.data.meta);
+          }
           return {
-            // data: data.data,
             data: res.data?.result,
             page: 1,
             success: true,
             total: res.data?.meta.total,
           };
         }}
-        rowKey="id"
+        rowKey="_id"
         pagination={{
-          pageSize: 5,
-          onChange: (page) => console.log(page),
+          current: meta.current,
+          pageSize: meta.pageSize,
+          showSizeChanger: true,
+          total: meta.total,
+          showTotal: (total, range) => {
+            return (
+              <div>
+                {range[0]} - {range[1]} of {total} items
+              </div>
+            );
+          },
         }}
         dateFormatter="string"
         headerTitle="Table user"

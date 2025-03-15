@@ -7,64 +7,7 @@ import type { ActionType, ProColumns } from "@ant-design/pro-components";
 import { ProTable } from "@ant-design/pro-components";
 import { Button } from "antd";
 import { useRef, useState } from "react";
-
-const columns: ProColumns<IUserTable>[] = [
-  {
-    dataIndex: "index",
-    valueType: "indexBorder",
-    width: 48,
-  },
-  {
-    title: "_id",
-    dataIndex: "_id",
-    hideInSearch: true,
-    render(_dom, entity, _index, _action, _schema) {
-      return <a href="#">{entity._id}</a>;
-    },
-  },
-  {
-    title: "Full Name",
-    dataIndex: "fullName",
-  },
-  {
-    title: "Email",
-    dataIndex: "email",
-    copyable: true,
-  },
-  {
-    title: "Phone",
-    dataIndex: "phone",
-    hideInSearch: true,
-  },
-  {
-    title: "Created At",
-    dataIndex: "createdAt",
-    valueType: "date",
-    sorter: true,
-    hideInSearch: true,
-  },
-  {
-    title: "Created At",
-    dataIndex: "createdAtRange",
-    valueType: "dateRange",
-    hideInTable: true,
-  },
-  {
-    title: "Action",
-    hideInSearch: true,
-    render(_dom, _entity, _index, _action, _schema) {
-      return (
-        <>
-          <EditTwoTone
-            twoToneColor="#f57800"
-            style={{ cursor: "pointer", marginRight: 15 }}
-          />
-          <DeleteTwoTone twoToneColor="#ff4d4f" style={{ cursor: "pointer" }} />
-        </>
-      );
-    },
-  },
-];
+import DetailUser from "./detail.user";
 
 type TSearch = {
   fullName: string;
@@ -81,6 +24,80 @@ const TableUser = () => {
     pages: 0,
     total: 0,
   });
+
+  const [openViewDetail, setOpenViewDetail] = useState<boolean>(false);
+  const [dataViewDetail, setDataViewDetail] = useState<IUserTable | null>(null);
+
+  const columns: ProColumns<IUserTable>[] = [
+    {
+      dataIndex: "index",
+      valueType: "indexBorder",
+      width: 48,
+    },
+    {
+      title: "_id",
+      dataIndex: "_id",
+      hideInSearch: true,
+      render(_dom, entity, _index, _action, _schema) {
+        return (
+          <a
+            onClick={() => {
+              setOpenViewDetail(true);
+              setDataViewDetail(entity);
+            }}
+            href="#"
+          >
+            {entity._id}
+          </a>
+        );
+      },
+    },
+    {
+      title: "Full Name",
+      dataIndex: "fullName",
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      copyable: true,
+    },
+    {
+      title: "Phone",
+      dataIndex: "phone",
+      hideInSearch: true,
+    },
+    {
+      title: "Created At",
+      dataIndex: "createdAt",
+      valueType: "date",
+      sorter: true,
+      hideInSearch: true,
+    },
+    {
+      title: "Created At",
+      dataIndex: "createdAtRange",
+      valueType: "dateRange",
+      hideInTable: true,
+    },
+    {
+      title: "Action",
+      hideInSearch: true,
+      render(_dom, _entity, _index, _action, _schema) {
+        return (
+          <>
+            <EditTwoTone
+              twoToneColor="#f57800"
+              style={{ cursor: "pointer", marginRight: 15 }}
+            />
+            <DeleteTwoTone
+              twoToneColor="#ff4d4f"
+              style={{ cursor: "pointer" }}
+            />
+          </>
+        );
+      },
+    },
+  ];
   return (
     <>
       <ProTable<IUserTable, TSearch>
@@ -104,6 +121,12 @@ const TableUser = () => {
             const createDateRange = dateRangeValidate(params.createdAtRange);
             if (createDateRange) {
               query += `&createdAt>=${createDateRange[0]}&createdAt<=${createDateRange[1]}`;
+            }
+
+            if (sort && sort.createdAt) {
+              query += `&sort=${
+                sort.createdAt === "ascend" ? "createdAt" : "-createdAt"
+              }`;
             }
           }
 
@@ -147,6 +170,13 @@ const TableUser = () => {
           </Button>,
         ]}
       />
+      <DetailUser
+        openViewDetail={openViewDetail}
+        setOpenViewDetail={setOpenViewDetail}
+        dataViewDetail={dataViewDetail}
+        setDataViewDetail={setDataViewDetail}
+      />
+      ;
     </>
   );
 };

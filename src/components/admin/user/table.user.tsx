@@ -2,13 +2,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getUsersAPI } from "@/services/api";
 import { dateRangeValidate } from "@/services/helper";
-import { DeleteTwoTone, EditTwoTone, PlusOutlined } from "@ant-design/icons";
+import {
+  CloudDownloadOutlined,
+  DeleteTwoTone,
+  EditTwoTone,
+  ExportOutlined,
+  PlusOutlined,
+} from "@ant-design/icons";
 import type { ActionType, ProColumns } from "@ant-design/pro-components";
 import { ProTable } from "@ant-design/pro-components";
 import { Button } from "antd";
 import { useRef, useState } from "react";
 import DetailUser from "./detail.user";
 import CreateUser from "./create.user";
+import ImportUser from "./data/import.user";
 
 type TSearch = {
   fullName: string;
@@ -29,6 +36,7 @@ const TableUser = () => {
   const [openViewDetail, setOpenViewDetail] = useState<boolean>(false);
   const [dataViewDetail, setDataViewDetail] = useState<IUserTable | null>(null);
   const [openModalCreate, setOpenModalCreate] = useState<boolean>(false);
+  const [openModalImport, setOpenModalImport] = useState<boolean>(false);
 
   const columns: ProColumns<IUserTable>[] = [
     {
@@ -168,6 +176,17 @@ const TableUser = () => {
         dateFormatter="string"
         headerTitle="Table user"
         toolBarRender={() => [
+          <Button key="button" icon={<ExportOutlined />} type="primary">
+            Export
+          </Button>,
+          <Button
+            key="button"
+            icon={<CloudDownloadOutlined />}
+            onClick={() => setOpenModalImport(true)}
+            type="primary"
+          >
+            Import
+          </Button>,
           <Button
             key="button"
             icon={<PlusOutlined />}
@@ -188,6 +207,10 @@ const TableUser = () => {
         openModalCreate={openModalCreate}
         setOpenModalCreate={setOpenModalCreate}
         refreshTable={refreshTable}
+      />
+      <ImportUser
+        openModalImport={openModalImport}
+        setOpenModalImport={setOpenModalImport}
       />
     </>
   );

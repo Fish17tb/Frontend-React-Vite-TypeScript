@@ -8,6 +8,7 @@ import Exceljs from "exceljs";
 import { useState } from "react";
 import { Buffer } from "buffer";
 import { bunkCreateUserAPI } from "@/services/api";
+import templateFile from "assets/template/template.xlsx?url";
 
 interface IProps {
   openModalImport: boolean;
@@ -130,7 +131,7 @@ const ImportUser = (props: IProps) => {
         okText="Import data"
         okButtonProps={{
           disabled: dataImport.length > 0 ? false : true,
-          loading: isSubmit
+          loading: isSubmit,
         }}
         //do not close when click outside
         maskClosable={false}
@@ -144,13 +145,20 @@ const ImportUser = (props: IProps) => {
             Click or drag file to this area to upload
           </p>
           <p className="ant-upload-hint">
-            Support for a single or bulk upload. Strictly prohibited from
-            uploading company data or other banned files.
+            Support for a single or bulk upload. Only accept .csv, .xls, .xlsx .
+            or &nbsp;
+            <a
+              onClick={(e) => e.stopPropagation()} // prevent opening the parent on click
+              href={templateFile}
+              download
+            >
+              Download Sample File
+            </a>
           </p>
         </Dragger>
         <div style={{ paddingTop: 20 }}>
           <Table
-          rowKey={"id"}
+            rowKey={"id"}
             title={() => <span>Dữ liệu upload:</span>}
             dataSource={dataImport}
             columns={[

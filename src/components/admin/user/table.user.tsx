@@ -138,13 +138,12 @@ const TableUser = () => {
               query += `&createdAt>=${createDateRange[0]}&createdAt<=${createDateRange[1]}`;
             }
 
-            //default
-            query += `&sort=-createdAt`;
-
             if (sort && sort.createdAt) {
               query += `&sort=${
                 sort.createdAt === "ascend" ? "createdAt" : "-createdAt"
               }`;
+            } else {
+              query += `&sort=-createdAt`;
             }
           }
 

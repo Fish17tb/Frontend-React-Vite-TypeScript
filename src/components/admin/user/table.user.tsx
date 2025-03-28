@@ -16,6 +16,8 @@ import { useRef, useState } from "react";
 import DetailUser from "./detail.user";
 import CreateUser from "./create.user";
 import ImportUser from "./data/import.user";
+import { CSVLink } from "react-csv";
+import UpdateUser from "./update.user";
 
 type TSearch = {
   fullName: string;
@@ -37,6 +39,9 @@ const TableUser = () => {
   const [dataViewDetail, setDataViewDetail] = useState<IUserTable | null>(null);
   const [openModalCreate, setOpenModalCreate] = useState<boolean>(false);
   const [openModalImport, setOpenModalImport] = useState<boolean>(false);
+  const [currentDataTable, setCurrentDataTable] = useState<IUserTable[]>([]);
+  const [openModalUpdate, setOpenModalUpdate] = useState<boolean>(false);
+  const [dataUpdate, setDataUpdate] = useState<IUserTable | null>(null);
 
   const columns: ProColumns<IUserTable>[] = [
     {
@@ -92,12 +97,16 @@ const TableUser = () => {
     {
       title: "Action",
       hideInSearch: true,
-      render(_dom, _entity, _index, _action, _schema) {
+      render(_dom, entity, _index, _action, _schema) {
         return (
           <>
             <EditTwoTone
               twoToneColor="#f57800"
               style={{ cursor: "pointer", marginRight: 15 }}
+              onClick={() => {
+                setDataUpdate(entity);
+                setOpenModalUpdate(true);
+              }}
             />
             <DeleteTwoTone
               twoToneColor="#ff4d4f"
@@ -150,6 +159,7 @@ const TableUser = () => {
           const res = await getUsersAPI(query);
           if (res.data) {
             setMeta(res.data.meta);
+            setCurrentDataTable(res.data?.result ?? []);
           }
           return {
             data: res.data?.result,
@@ -176,7 +186,9 @@ const TableUser = () => {
         headerTitle="Table user"
         toolBarRender={() => [
           <Button key="button" icon={<ExportOutlined />} type="primary">
-            Export
+            <CSVLink data={currentDataTable} filename="export-user.csv">
+              Export
+            </CSVLink>
           </Button>,
           <Button
             key="button"
@@ -211,6 +223,13 @@ const TableUser = () => {
         openModalImport={openModalImport}
         setOpenModalImport={setOpenModalImport}
         refreshTable={refreshTable}
+      />
+      <UpdateUser
+        dataUpdate={dataUpdate}
+        openModalUpdate={openModalUpdate}
+        refreshTable={refreshTable}
+        setDataUpdate={setDataUpdate}
+        setOpenModalUpdate={setOpenModalUpdate}
       />
     </>
   );

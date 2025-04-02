@@ -1,9 +1,11 @@
+import TableBook from "./book/table.book";
+
 const ManageBookPage = () => {
-    return (
-        <div>
-            ManageBookPage
-        </div>
-    )
-}
+  return (
+    <div>
+      <TableBook />
+    </div>
+  );
+};
 
 export default ManageBookPage;

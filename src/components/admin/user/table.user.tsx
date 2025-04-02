@@ -37,11 +37,16 @@ const TableUser = () => {
 
   const [openViewDetail, setOpenViewDetail] = useState<boolean>(false);
   const [dataViewDetail, setDataViewDetail] = useState<IUserTable | null>(null);
+
   const [openModalCreate, setOpenModalCreate] = useState<boolean>(false);
+
   const [openModalImport, setOpenModalImport] = useState<boolean>(false);
+
   const [currentDataTable, setCurrentDataTable] = useState<IUserTable[]>([]);
   const [openModalUpdate, setOpenModalUpdate] = useState<boolean>(false);
+
   const [dataUpdate, setDataUpdate] = useState<IUserTable | null>(null);
+
   const [isDeleteUser, setIsDeleteUser] = useState<boolean>(false);
 
   const { message, notification } = App.useApp();

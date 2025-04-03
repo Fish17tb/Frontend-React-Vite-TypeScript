@@ -248,7 +248,12 @@ const TableBook = () => {
         ]}
       />
 
-      <DetailBook />
+      <DetailBook
+        openViewDetail={openViewDetail}
+        setOpenViewDetail={setOpenViewDetail}
+        setDataViewDetail={setDataViewDetail}
+        dataViewDetail={dataViewDetail}
+      />
     </>
   );
 };

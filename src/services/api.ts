@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "./axios.customize";
 
 export const loginAPI = (username: string, password: string) => {
@@ -97,4 +98,22 @@ export const getBooksAPI = (query: string) => {
 export const getCategoryAPI = () => {
   const urlBackend = "/api/v1/database/category";
   return axios.get<IBackendRes<string[]>>(urlBackend);
+};
+
+export const uploadFileAPI = (fileImg: any, folder: string) => {
+  const bodyFormData = new FormData();
+  bodyFormData.append("fileImg", fileImg);
+  return axios<
+    IBackendRes<{
+      fileUploaded: string;
+    }>
+  >({
+    method: "post",
+    url: "/api/v1/file/upload",
+    data: bodyFormData,
+    headers: {
+      "Content-Type": "multipart/form-data",
+      "upload-type": folder,
+    },
+  });
 };

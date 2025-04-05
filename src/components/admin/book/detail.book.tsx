@@ -89,7 +89,7 @@ const DetailBook = (props: IProps) => {
     <>
       <Drawer
         title="Chức năng xem chi tiết"
-        width={"70vw"}
+        width={"50vw"}
         onClose={onClose}
         open={openViewDetail}
       >

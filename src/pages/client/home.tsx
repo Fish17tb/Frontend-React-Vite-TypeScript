@@ -17,6 +17,7 @@ import {
 } from "antd";
 import type { FormProps } from "antd";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "styles/home.scss";
 
 type FieldType = {
@@ -29,6 +30,8 @@ type FieldType = {
 
 const HomePage = () => {
   const [form] = Form.useForm();
+
+  const navigate = useNavigate();
 
   const [listCategory, setListCategory] = useState<
     {
@@ -309,7 +312,11 @@ const HomePage = () => {
                 <Row className="customize-row">
                   {listBook?.map((item, index) => {
                     return (
-                      <div className="column" key={`book-${index}`}>
+                      <div
+                        className="column"
+                        key={`book-${index}`}
+                        onClick={() => navigate(`/book/${item._id}`)}
+                      >
                         <div className="wrapper">
                           <div className="thumbnail">
                             <img

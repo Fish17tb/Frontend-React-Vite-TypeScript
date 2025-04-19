@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { fetchAccountAPI } from "@/services/api";
 import { createContext, useContext, useEffect, useState } from "react";
 import PacmanLoader from "react-spinners/PacmanLoader";
@@ -29,9 +30,13 @@ export const AppProvider = (props: TProps) => {
   useEffect(() => {
     const fetchAccount = async () => {
       const res = await fetchAccountAPI();
+      const carts = localStorage.getItem("carts")
       if (res.data) {
         setUser(res.data.user);
         setIsAuthenticated(true);
+        if (carts) {
+            setCarts(JSON.parse(carts))
+        }
       }
       setIsAppLoading(false);
     };

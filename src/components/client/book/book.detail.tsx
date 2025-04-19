@@ -2,7 +2,7 @@
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-object-type */
-import { Row, Col, Rate, Divider } from "antd";
+import { Row, Col, Rate, Divider, message } from "antd";
 import ImageGallery from "react-image-gallery";
 import { useEffect, useRef, useState } from "react";
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
@@ -188,6 +188,7 @@ const BookDetail = (props: IProps) => {
       //sync React Context
       setCarts(data);
     }
+    message.success("Thêm sản phẩm vào giỏ hàng thành công")
   };
   console.log(carts);
 

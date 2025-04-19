@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+/* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 import { Row, Col, Rate, Divider } from "antd";
@@ -7,6 +9,7 @@ import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { BsCartPlus } from "react-icons/bs";
 import "styles/book.scss";
 import ModalGallery from "./modal.gallery";
+import { useCurrentApp } from "@/components/context/app.context";
 
 interface IProps {
   currentBook: IBookTable | null;
@@ -28,6 +31,8 @@ const BookDetail = (props: IProps) => {
   const [isOpenModalGallery, setIsOpenModalGallery] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentQuantity, setCurrentQuantity] = useState<number>(1);
+
+  const { carts, setCarts } = useCurrentApp();
 
   const refGallery = useRef<ImageGallery>(null);
 
@@ -146,6 +151,46 @@ const BookDetail = (props: IProps) => {
     }
   };
 
+  const handleAddToCart = () => {
+    //update localStorage
+    const cartStorage = localStorage.getItem("carts");
+    if (cartStorage && currentBook) {
+      //update
+      const carts = JSON.parse(cartStorage) as ICart[];
+
+      //check exist
+      let isExistIndex = carts.findIndex((c) => c._id === currentBook?._id);
+      if (isExistIndex > -1) {
+        carts[isExistIndex].quantity =
+          carts[isExistIndex].quantity + currentQuantity;
+      } else {
+        carts.push({
+          _id: currentBook._id,
+          quantity: currentQuantity,
+          detail: currentBook,
+        });
+      }
+      localStorage.setItem("carts", JSON.stringify(carts));
+
+      //sync React Context
+      setCarts(carts);
+    } else {
+      // create
+      const data = [
+        {
+          _id: currentBook?._id!,
+          quantity: currentQuantity,
+          detail: currentBook!,
+        },
+      ];
+      localStorage.setItem("carts", JSON.stringify(data));
+
+      //sync React Context
+      setCarts(data);
+    }
+  };
+  console.log(carts);
+
   return (
     <div style={{ background: "#efefef", padding: "20px 0" }}>
       <div
@@ -231,7 +276,7 @@ const BookDetail = (props: IProps) => {
                   </span>
                 </div>
                 <div className="buy">
-                  <button className="cart">
+                  <button className="cart" onClick={() => handleAddToCart()}>
                     <BsCartPlus className="icon-cart" />
                     <span>Thêm vào giỏ hàng</span>
                   </button>

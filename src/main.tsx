@@ -16,7 +16,7 @@ import DashBoardPage from "components/admin/dashboard";
 import ManageBookPage from "components/admin/manage.book";
 import ManageOrderPage from "components/admin/manage.order";
 import ManageUserPage from "components/admin/manage.user";
-import enUS from 'antd/locale/en_US';
+import enUS from "antd/locale/en_US";
 import OrderPage from "./pages/client/order";
 // import viVN from 'antd/locale/vi_VN';
 
@@ -35,7 +35,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/order",
-        element: <OrderPage />,
+        element: (
+          <ProtectedRoute>
+            <OrderPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/about",

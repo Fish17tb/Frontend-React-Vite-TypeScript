@@ -17,6 +17,7 @@ import ManageBookPage from "components/admin/manage.book";
 import ManageOrderPage from "components/admin/manage.order";
 import ManageUserPage from "components/admin/manage.user";
 import enUS from 'antd/locale/en_US';
+import OrderPage from "./pages/client/order";
 // import viVN from 'antd/locale/vi_VN';
 
 const router = createBrowserRouter([
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "/book/:id",
         element: <BookPage />,
+      },
+      {
+        path: "/order",
+        element: <OrderPage />,
       },
       {
         path: "/about",

@@ -180,16 +180,53 @@ export const getBookByIdAPI = (id: string) => {
 };
 
 export const createOrderAPI = (
-  name: string, address: string,
-  phone: string, totalPrice: number,
-  type: string, detail: any
+  name: string,
+  address: string,
+  phone: string,
+  totalPrice: number,
+  type: string,
+  detail: any
 ) => {
   const urlBackend = "/api/v1/order";
-  return axios.post<IBackendRes<IRegister>>(urlBackend,
-      { name, address, phone, totalPrice, type, detail })
-}
+  return axios.post<IBackendRes<IRegister>>(urlBackend, {
+    name,
+    address,
+    phone,
+    totalPrice,
+    type,
+    detail,
+  });
+};
 
 export const getHistoryAPI = () => {
   const urlBackend = `/api/v1/history`;
-  return axios.get<IBackendRes<IHistory[]>>(urlBackend)
-}
+  return axios.get<IBackendRes<IHistory[]>>(urlBackend);
+};
+
+export const updateUserInfoAPI = (
+  _id: string,
+  avatar: string,
+  fullName: string,
+  phone: string
+) => {
+  const urlBackend = "/api/v1/user";
+  return axios.put<IBackendRes<IRegister>>(urlBackend, {
+    fullName,
+    phone,
+    avatar,
+    _id,
+  });
+};
+
+export const updateUserPasswordAPI = (
+  email: string,
+  oldpass: string,
+  newpass: string
+) => {
+  const urlBackend = "/api/v1/user/change-password";
+  return axios.post<IBackendRes<IRegister>>(urlBackend, {
+    email,
+    oldpass,
+    newpass,
+  });
+};

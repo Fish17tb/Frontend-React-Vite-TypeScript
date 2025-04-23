@@ -18,7 +18,7 @@ import ManageOrderPage from "components/admin/manage.order";
 import ManageUserPage from "components/admin/manage.user";
 import enUS from "antd/locale/en_US";
 import OrderPage from "./pages/client/order";
-import HistoryPage from "./pages/history";
+import HistoryPage from "./pages/client/history";
 // import viVN from 'antd/locale/vi_VN';
 
 const router = createBrowserRouter([

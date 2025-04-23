@@ -18,6 +18,7 @@ import ManageOrderPage from "components/admin/manage.order";
 import ManageUserPage from "components/admin/manage.user";
 import enUS from "antd/locale/en_US";
 import OrderPage from "./pages/client/order";
+import HistoryPage from "./pages/history";
 // import viVN from 'antd/locale/vi_VN';
 
 const router = createBrowserRouter([
@@ -46,10 +47,10 @@ const router = createBrowserRouter([
         element: <AboutPage />,
       },
       {
-        path: "/checkout",
+        path: "/history",
         element: (
           <ProtectedRoute>
-            <div>checkout page</div>
+            <HistoryPage />
           </ProtectedRoute>
         ),
       },

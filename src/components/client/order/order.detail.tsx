@@ -1,5 +1,5 @@
 /* eslint-disable prefer-const */
-import { App, Col, Divider, Empty, InputNumber, Row } from "antd";
+import { App, Button, Col, Divider, Empty, InputNumber, Row } from "antd";
 import { DeleteTwoTone } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { useCurrentApp } from "@/components/context/app.context";
@@ -149,9 +149,13 @@ const OrderDetail = (props: IProps) => {
                 </span>
               </div>
               <Divider style={{ margin: "10px 0" }} />
-              <button onClick={() => handleNextStep()}>
+              <Button
+                color="danger"
+                variant="solid"
+                onClick={() => handleNextStep()}
+              >
                 Mua Hàng ({carts?.length ?? 0})
-              </button>
+              </Button>
             </div>
           </Col>
         </Row>
